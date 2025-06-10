@@ -345,14 +345,14 @@ const RedacaoModal = ({
       .catch(errorSwal);
   }, [ShowModal, IdProva, redacaoService]);
 
-  // useEffect(() => {
-  //   referenciaService
-  //     .findOneByProvaId(IdProva)
-  //     .then(({ data: { dados } }) => {
-  //       setFormRedacao(dados);
-  //     })
-  //     .catch(errorSwal);
-  // }, [ShowModal, IdProva, redacaoService]);
+  useEffect(() => {
+    referenciaService
+      .findOneByProvaId(IdProva)
+      .then(({ data: { dados } }) => {
+        setFormRedacao(dados);
+      })
+      .catch(errorSwal);
+  }, [ShowModal, IdProva, referenciaService]);
 
   return (
     <dialog

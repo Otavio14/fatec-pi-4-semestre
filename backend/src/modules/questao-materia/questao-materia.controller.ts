@@ -9,10 +9,10 @@ import {
   Put,
 } from "@nestjs/common";
 import { API_RESPONSE_CONSTANTS } from "../../common/constants/api-response.constant";
+import { Roles } from "../../common/decorators/role.decorator";
 import { IApiResponse, ICrudController } from "../../common/index.interface";
 import { IQuestaoMateria } from "./questao-materia.interface";
 import { QuestaoMateriaService } from "./questao-materia.service";
-import { Roles } from "../../common/decorators/role.decorator";
 
 @Controller("questoes-materias")
 export class QuestaoMateriaController

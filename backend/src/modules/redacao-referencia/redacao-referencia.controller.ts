@@ -9,10 +9,10 @@ import {
   Put,
 } from "@nestjs/common";
 import { API_RESPONSE_CONSTANTS } from "../../common/constants/api-response.constant";
+import { Roles } from "../../common/decorators/role.decorator";
 import { IApiResponse, ICrudController } from "../../common/index.interface";
 import { IRedacaoReferencia } from "./redacao-referencia.interface";
 import { RedacaoReferenciaService } from "./redacao-referencia.service";
-import { Roles } from "../../common/decorators/role.decorator";
 
 @Controller("redacoes-referencias")
 export class RedacaoReferenciaController

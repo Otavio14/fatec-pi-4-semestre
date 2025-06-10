@@ -9,10 +9,10 @@ import {
   Put,
 } from "@nestjs/common";
 import { API_RESPONSE_CONSTANTS } from "../../common/constants/api-response.constant";
+import { Roles } from "../../common/decorators/role.decorator";
 import { IApiResponse, ICrudController } from "../../common/index.interface";
 import { ISimulado } from "./simulado.interface";
 import { SimuladoService } from "./simulado.service";
-import { Roles } from "../../common/decorators/role.decorator";
 
 @Controller("simulados")
 export class SimuladoController implements ICrudController<ISimulado, number> {

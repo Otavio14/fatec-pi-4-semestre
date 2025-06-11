@@ -34,7 +34,7 @@ export const VestibularCompletoPage = () => {
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState(0);
 
-  const examDuration = 5 * 60; // 5 minutos em segundos
+  const examDuration = 4 * 60 * 60; // 5 minutos em segundos
   const [timeLeft, setTimeLeft] = useState(examDuration);
 
   // Reduz o tempo a cada segundo

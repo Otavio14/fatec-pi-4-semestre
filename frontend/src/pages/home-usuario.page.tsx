@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { apiService } from "../services/api.service";
 import { authService } from "../services/auth.service";
+import { useNavigate } from "react-router";
 
 interface User {
   id: number,
@@ -11,6 +12,7 @@ interface User {
 
 export const HomeUsuarioPage = () => {
   const [editando, setEditando] = useState(false);
+  const navigate = useNavigate()
 
   const [user, setUser] = useState<User>({
     id: 0,
@@ -22,6 +24,13 @@ export const HomeUsuarioPage = () => {
   const historicoVestibulares = [8, 10, 6]; // acertos
   const historicoRedacoes = [700, 800, 680]; // pontuação
   const recordeSeguido = 12;
+
+  const handleLogout = () => {
+    localStorage.removeItem("token")
+    if (!authService.isAuthenticated()){
+      navigate("/")
+    }
+  }
 
   useEffect(() => {
     const info = authService.getUserInfo()
@@ -81,16 +90,16 @@ export const HomeUsuarioPage = () => {
                 </button>
               </>
             ) : ( */}
-              <>
-                <p className="text-xl font-semibold text-gray-700">{user?.nome || "carregando..."}</p>
-                <p className="text-gray-600">{user?.email || "carregando..."}</p>
-                {/* <button
+            <>
+              <p className="text-xl font-semibold text-gray-700">{user?.nome || "carregando..."}</p>
+              <p className="text-gray-600">{user?.email || "carregando..."}</p>
+              {/* <button
                   onClick={() => setEditando(true)}
                   className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
                 >
                   Editar Informações
                 </button> */}
-              </>
+            </>
             {/* )} */}
           </div>
         </div>
@@ -134,6 +143,12 @@ export const HomeUsuarioPage = () => {
             </p>
           </div>
         </div>
+      <button
+        className="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg transition duration-200"
+        onClick={handleLogout}
+      >
+        Logout
+      </button>
       </div>
     </div>
   );

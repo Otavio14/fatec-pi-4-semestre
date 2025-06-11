@@ -102,6 +102,33 @@ export const HomePage = () => {
           </div>
         </div>
       </div>
-    </div>
+      <a
+        href="https://vestibular.fatec.sp.gov.br/home/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex w-full justify-center"
+      >
+        <div
+          className="mb-8 flex cursor-pointer w-full max-w-6xl flex-col gap-8 overflow-hidden rounded-2xl bg-white px-6 py-10 shadow-lg transition-transform duration-300 hover:scale-105 relative bg-cover bg-center text-white"
+          style={{
+            backgroundImage:
+              "url('https://imgs.search.brave.com/PYOLl9kC5RsVHGDeI7NrExDz0BArRksbLQLlc_pm-dM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly92ZXN0/aWJ1bGFyZXMuZXN0/cmF0ZWdpYS5jb20v/cG9ydGFsL3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDIwLzA4L3Zl/c3RpYnVsYXItZmF0/ZWMuanBn')",
+          }}
+        >
+          {/* Overlay para escurecer a imagem */}
+          <div className="absolute inset-0 bg-[rgba(0,0,0,0.5)]"></div>
+
+          {/* Conteúdo sobreposto à imagem */}
+          <div className="relative z-10">
+            <h2 className="text-center text-4xl leading-tight font-extrabold text-white md:text-5xl">
+              Inscreva-se no Vestibular da Fatec!
+            </h2>
+            <p className="text-center mx-auto text-lg text-white">
+              Utilize todo seu treinamento na prática por meio do processo seletivo!
+            </p>
+          </div>
+        </div>
+      </a>
+    </div >
   );
 };

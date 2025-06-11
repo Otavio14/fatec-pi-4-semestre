@@ -2,14 +2,14 @@ import { decodeJwt } from "jose";
 import { IPerfil } from "../types/index.type";
 
 export const authService = {
-  getUserId: (): any => {
+  getUserInfo: (): any => {
     const token = localStorage.getItem("token");
 
     if (!token || token === "") return false;
 
     try {
-      const { id } = decodeJwt(token) as { id: number };
-      return id;
+      const { id, email, nome, perfil } = decodeJwt(token);
+      return {id, email, nome, perfil};
     } catch {
       localStorage.removeItem("token");
       return false;

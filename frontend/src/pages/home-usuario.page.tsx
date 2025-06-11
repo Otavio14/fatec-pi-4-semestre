@@ -1,69 +1,76 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { apiService } from "../services/api.service";
+import { authService } from "../services/auth.service";
+
+interface User {
+  id: number,
+  nome: string,
+  email: string,
+  perfil: string
+}
 
 export const HomeUsuarioPage = () => {
-  const [nome, setNome] = useState("João Silva");
-  const [email, setEmail] = useState("joao@email.com");
   const [editando, setEditando] = useState(false);
-  const [imagem, setImagem] = useState("https://i.pravatar.cc/150?img=3");
+
+  const [user, setUser] = useState<User>({
+    id: 0,
+    nome: "",
+    email: "",
+    perfil: "",
+  });
 
   const historicoVestibulares = [8, 10, 6]; // acertos
   const historicoRedacoes = [700, 800, 680]; // pontuação
   const recordeSeguido = 12;
 
-  const handleImagemChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagem(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  useEffect(() => {
+    const info = authService.getUserInfo()
+    setUser(info)
+  }, [])
 
-  const salvarAlteracoes = () => {
-    setEditando(false);
-    // Aqui você pode integrar com backend (API)
-  };
+  // const salvarAlteracoes = () => {
+  //   const data = {
+  //     email: "aluno@gmail.com",
+  //     id: 2,
+  //     nome: "Teste da Silva Oliveira",
+  //   }
+  //   setEditando(false);
+  //   if (user) {
+  //     apiService.put(`/usuarios/2`, data).then((res) => {
+  //       console.log({ response: res })
+  //     }).catch((err) => {
+  //       console.log({ error: err })
+  //     })
+  //   }
+  // };
 
   return (
     <div className="min-h-screen bg-gray-100 px-6 py-10">
       <div className="mx-auto max-w-4xl rounded-xl bg-white p-8 shadow-md">
         <h1 className="mb-6 text-3xl font-bold text-gray-800">
-          Perfil do Usuário
+          Perfil
         </h1>
-
         <div className="flex flex-col items-center gap-6 md:flex-row">
-          <div className="relative">
-            <img
-              src={imagem}
-              alt="Imagem de Perfil"
-              className="h-32 w-32 rounded-full object-cover ring-2 ring-blue-500"
-            />
-            <label className="absolute right-0 bottom-0 cursor-pointer rounded-full bg-blue-600 px-2 py-1 text-sm text-white hover:bg-blue-700">
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImagemChange}
-                className="hidden"
-              />
-              Editar
-            </label>
-          </div>
-
           <div className="flex-1 space-y-4">
-            {editando ? (
+            {/* {editando ? (
               <>
                 <input
                   type="text"
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
+                  value={user?.nome || ""}
+                  onChange={(e) => setUser((prev) => ({
+                    ...prev!,
+                    nome: e.target.value
+                  }))
+                  }
                   className="w-full rounded border px-4 py-2"
                 />
                 <input
                   type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={user?.email || ""}
+                  onChange={(e) => setUser((prev) => ({
+                    ...prev!,
+                    email: e.target.value
+                  }))}
                   className="w-full rounded border px-4 py-2"
                 />
                 <button
@@ -73,18 +80,18 @@ export const HomeUsuarioPage = () => {
                   Salvar
                 </button>
               </>
-            ) : (
+            ) : ( */}
               <>
-                <p className="text-xl font-semibold text-gray-700">{nome}</p>
-                <p className="text-gray-600">{email}</p>
-                <button
+                <p className="text-xl font-semibold text-gray-700">{user?.nome || "carregando..."}</p>
+                <p className="text-gray-600">{user?.email || "carregando..."}</p>
+                {/* <button
                   onClick={() => setEditando(true)}
                   className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
                 >
                   Editar Informações
-                </button>
+                </button> */}
               </>
-            )}
+            {/* )} */}
           </div>
         </div>
 

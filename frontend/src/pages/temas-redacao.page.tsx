@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { apiService } from "../services/api.service";
+import { useNavigate } from "react-router";
 
 export const TemasRedacaoPage = () => {
   const [essayText, setEssayText] = useState("");
   const [redacoesComReferencias, setRedacoesComReferencias] = useState<any[]>([]);
   const [redacaoSorteada, setRedacaoSorteada] = useState<any>(null);
 
+  const navigate = useNavigate()
+  
   const confirmarRedacao = () => {
     console.log(essayText)
   }
@@ -59,6 +62,12 @@ export const TemasRedacaoPage = () => {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-start bg-gradient-to-b from-[#f5f7fa] to-[#c3cfe2] px-4 py-10">
+      <button
+        onClick={() => navigate("/")}
+        className="bg-green-200 hover:bg-green-300 text-gray-800 mr-auto font-medium py-2 px-4 rounded-lg transition duration-200"
+      >
+        Voltar
+      </button>
       <div className="flex w-full max-w-4xl flex-col gap-6 rounded-2xl bg-white p-8 shadow-xl">
         {/* Informações da prova */}
         <div className="text-sm font-medium text-gray-500">

@@ -4,11 +4,11 @@
 
 ## 📋 Índice
 
-- [Descrição](##descrição)
-- [Funcionalidades](##funcionalidades)
-- [Tecnologias Utilizadas](##tecnologias-utilizadas)
-- [Instalação](##instalação)
-- [Uso](##uso)
+    - Descrição
+    - Funcionalidades
+    - Tecnologias Utilizadas
+    - Instalação
+    - Uso
 
 ## 📖 Descrição
 

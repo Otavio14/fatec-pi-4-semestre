@@ -55,6 +55,12 @@ export const HomeUsuarioPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 px-6 py-10">
+      <button
+      onClick={() => navigate("/")}
+      className="bg-green-200 hover:bg-green-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition duration-200"
+    >
+      Voltar
+    </button>
       <div className="mx-auto max-w-4xl rounded-xl bg-white p-8 shadow-md">
         <h1 className="mb-6 text-3xl font-bold text-gray-800">
           Perfil
@@ -106,7 +112,7 @@ export const HomeUsuarioPage = () => {
 
         <hr className="my-8" />
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="grid mb-6 grid-cols-1 gap-6 md:grid-cols-3">
           <div className="rounded-lg bg-blue-50 p-4 shadow">
             <h3 className="mb-2 text-lg font-semibold text-blue-700">
               Histórico de Vestibulares
@@ -147,7 +153,7 @@ export const HomeUsuarioPage = () => {
         className="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg transition duration-200"
         onClick={handleLogout}
       >
-        Logout
+        Sair
       </button>
       </div>
     </div>

@@ -5,12 +5,10 @@ import { SelectComponent } from "../components/select.component";
 import { errorSwal } from "../services/api.service";
 import { ProvaService } from "../services/prova.service";
 import { RedacaoService } from "../services/redacao.service";
-import { ReferenciaService } from "../services/referencia.service";
 import { VestibularService } from "../services/vestibular.service";
 import { Swal, Toast } from "../shared/swal.shared";
 import { IProva } from "../types/prova.type";
 import { IRedacao } from "../types/redacao.type";
-import { IReferencia } from "../types/referencia.type";
 import { IVestibular } from "../types/vestibular.type";
 
 export const ProvaPage = () => {
@@ -270,29 +268,29 @@ const RedacaoModal = ({
   ShowModal,
   SetShowModal,
 }: IRedacaoModalProps) => {
-  const [redacao, setRedacao] = useState<IRedacao>({
-    id_prova: 0,
-    id: 0,
-    instrucoes: "",
-  });
-  const [referencias, setReferencias] = useState<Array<IReferencia>>([]);
-  const [reload, setReload] = useState(false);
+  // const [redacao, setRedacao] = useState<IRedacao>({
+  //   id_prova: 0,
+  //   id: 0,
+  //   instrucoes: "",
+  // });
+  // const [referencias, setReferencias] = useState<Array<IReferencia>>([]);
+  // const [reload, setReload] = useState(false);
   const [formRedacao, setFormRedacao] = useState<IRedacao>({
     id_prova: 0,
     id: 0,
     instrucoes: "",
   });
-  const [formReferencia, setFormReferencia] = useState<IReferencia>({
-    id: 0,
-    informacao_acesso: "",
-    legenda: "",
-    texto: "",
-    titulo: "",
-    url_imagem: "",
-  });
+  // const [formReferencia, setFormReferencia] = useState<IReferencia>({
+  //   id: 0,
+  //   informacao_acesso: "",
+  //   legenda: "",
+  //   texto: "",
+  //   titulo: "",
+  //   url_imagem: "",
+  // });
 
   const redacaoService = useMemo(() => new RedacaoService(), []);
-  const referenciaService = useMemo(() => new ReferenciaService(), []);
+  // const referenciaService = useMemo(() => new ReferenciaService(), []);
   const DialogRef = useRef<HTMLDialogElement>(null);
 
   const closeModal = () => {
@@ -345,14 +343,14 @@ const RedacaoModal = ({
       .catch(errorSwal);
   }, [ShowModal, IdProva, redacaoService]);
 
-  useEffect(() => {
-    referenciaService
-      .findOneByProvaId(IdProva)
-      .then(({ data: { dados } }) => {
-        setFormRedacao(dados);
-      })
-      .catch(errorSwal);
-  }, [ShowModal, IdProva, referenciaService]);
+  // useEffect(() => {
+  //   referenciaService
+  //     .findOneByProvaId(IdProva)
+  //     .then(({ data: { dados } }) => {
+  //       setFormRedacao(dados);
+  //     })
+  //     .catch(errorSwal);
+  // }, [ShowModal, IdProva, referenciaService]);
 
   return (
     <dialog
@@ -403,10 +401,10 @@ const RedacaoModal = ({
   );
 };
 
-const QuestaoModal = () => {
-  return <div></div>;
-};
+// const QuestaoModal = () => {
+//   return <div></div>;
+// };
 
-const ReferenciaModal = () => {
-  return <div></div>;
-};
+// const ReferenciaModal = () => {
+//   return <div></div>;
+// };

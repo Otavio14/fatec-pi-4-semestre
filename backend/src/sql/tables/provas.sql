@@ -6,5 +6,5 @@ CREATE TABLE
     nome TEXT NOT NULL UNIQUE,
     id_vestibular INTEGER NOT NULL,
     instrucoes TEXT NOT NULL,
-    FOREIGN KEY (id_vestibular) REFERENCES vestibulares(id)
+    FOREIGN KEY (id_vestibular) REFERENCES vestibulares (id)
   );

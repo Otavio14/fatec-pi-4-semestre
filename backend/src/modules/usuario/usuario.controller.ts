@@ -67,7 +67,7 @@ export class UsuarioController implements ICrudController<IUsuario, number> {
   }
 
   @Get()
-  @Roles(["Administrador"])
+  // @Roles(["Administrador"])
   async findAll(): Promise<IApiResponse<Array<GetDto>>> {
     try {
       const data = await this.usuarioService.findAll();

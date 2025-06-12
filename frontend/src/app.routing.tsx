@@ -62,7 +62,7 @@ export const AppRouting = () => {
         />
         <Route
           path="/provas-anteriores"
-          element={renderTags(<ProvasAnterioresPage />)}
+          element={renderTags(<ProvasAnterioresPage />, "Público")}
         />
       </Route>
       {/* <-------------------------------------------------- Rotas Públicas */}

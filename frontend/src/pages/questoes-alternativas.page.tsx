@@ -18,8 +18,9 @@ interface Questao {
   alternativas: Alternativa[];
 }
 
+
 export const QuestoesAlternativasPage = () => {
-  const [questoesAlternativas, setQuestoesAlternativas] = useState<Questao[]>([]);
+  const [questoesComReferencias, setQuestoesComReferencias] = useState<any[]>([]);
   const [respostasSelecionadas, setRespostasSelecionadas] = useState<{ [questaoId: number]: number }>({});
   const [resultado, setResultado] = useState<{ [questaoId: number]: boolean | null }>({});
 
@@ -33,29 +34,34 @@ export const QuestoesAlternativasPage = () => {
   }
 
 useEffect(() => {
-  apiService.get("/questoes").then(async (res) => {
-    const questoes = res.data.dados;
+  apiService.get("questoes-referencias").then(async (res) => {
+    const questoesReferencias = res.data.dados
+    const questoesComReferencias = await Promise.all(
+      questoesReferencias.map(async (questoesReferencias: any) => {
+        const questoesInfo = await apiService.get(`/questoes/${questoesReferencias.id_questao}`);
+        const referenciasInfo = await apiService.get(`/referencias/${questoesReferencias.id_referencia}`);
+        const provaInfo = await apiService.get(`/provas/${questoesInfo.data.dados.id_prova}`);
+        const altRes = await apiService.get(`/alternativas?questaoId=${questoesInfo.data.dados.id}`);
 
-    // Embaralha e seleciona apenas 10 questões
-    const questoesAleatorias = embaralhar(questoes).slice(0, 10);
-
-    const questoesComAlternativas = await Promise.all(
-      questoesAleatorias.map(async (questao: any) => {
-        const altRes = await apiService.get(`/alternativas?questaoId=${questao.id}`);
-        const fromProva = await apiService.get(`/provas/${questao.id_prova}`);
-        console.log({Questão: questao, prova: fromProva})
         return {
-          ...questao,
-          prova: fromProva.data.dados.nome,
+          ...questoesReferencias,
+          prova: provaInfo.data.dados.nome,
           alternativas: altRes.data.dados || [],
+          questao: questoesInfo.data.dados,
+          referencia: referenciasInfo.data.dados,
         };
       })
     );
-    setQuestoesAlternativas(questoesComAlternativas);
-  }).catch((err) => {
-    console.error("Erro ao buscar questões ou alternativas:", err);
+
+    const questoesEmbaralhadas = embaralhar(questoesComReferencias).slice(0, 10);
+    setQuestoesComReferencias(questoesEmbaralhadas);
   });
 }, []);
+
+
+  useEffect(() => {
+    console.log({ questoes_com_referencias: questoesComReferencias })
+  }, [questoesComReferencias]);
 
 
   const handleSelecionar = (questaoId: number, alternativaId: number) => {
@@ -80,6 +86,15 @@ useEffect(() => {
     }));
   };
 
+  if (questoesComReferencias.length === 0) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#f5f7fa] to-[#c3cfe2] p-6">
+        <p className="text-lg font-semibold text-gray-700">Carregando questões...</p>
+      </div>
+    );
+  }
+
+
   return (
     <div className="flex min-h-screen flex-col items-center gap-6 bg-gradient-to-b from-[#f5f7fa] to-[#c3cfe2] p-6">
       <button
@@ -88,7 +103,7 @@ useEffect(() => {
       >
         Voltar
       </button>
-      {questoesAlternativas.map((questao) => {
+      {questoesComReferencias?.map((questao) => {
         const respondida = resultado.hasOwnProperty(questao.id) && resultado[questao.id] !== null;
 
 
@@ -101,11 +116,23 @@ useEffect(() => {
             <div className="mb-4 rounded-full bg-gray-200 px-4 py-1 text-sm font-semibold text-gray-700 w-fit">
               {questao.prova}
             </div>
+            <div className="bg-gray-200 p-2 rounded-md shadow-md mb-4">
+              <h1 className="text-lg font-bold">
+                {questao.referencia.titulo}
+              </h1>
+              <p className="text-sm font-bold text-blue-900 mb-4">
+                {questao.referencia.legenda}
+              </p>
+              <p className="mb-2">
+                {questao.referencia.texto}
+              </p>
+              {questao.referencia.url_imagem ? <img className="mb-2 w-full h-full" src={questao.referencia.url_imagem} alt="imagem da referencia" /> : null}
+            </div>
             <h2 className={`mb-4 text-lg font-bold ${respondida ? "text-gray-700" : "text-gray-800"}`}>
-              {questao.texto}
+              {questao.questao.texto}
             </h2>
             <div className="flex flex-col gap-2">
-              {questao.alternativas.map((alternativa) =>
+              {questao.alternativas.map((alternativa: any) =>
                 alternativa.id_questao === questao.id ? (
                   <label
                     key={alternativa.id}
@@ -122,7 +149,7 @@ useEffect(() => {
                       onChange={() => handleSelecionar(questao.id, alternativa.id)}
                       disabled={respondida}
                     />
-                    <span>{alternativa.texto}</span>
+                    <span><b>({alternativa.nome})</b>  {alternativa.texto}</span>
                   </label>
                 ) : null
               )}

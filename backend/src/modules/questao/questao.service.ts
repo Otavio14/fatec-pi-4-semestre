@@ -51,7 +51,7 @@ export class QuestaoService implements ICrudService<IQuestao, number> {
     try{
       for(const questao of data.questoes){
         const sucesso = await this.databaseService.executeInsert({
-          sql: "INSERT INTO questoes (id_proca, numero, texto) VALUES (?,?,?)" ,
+          sql: "INSERT INTO questoes (id_prova, numero, texto) VALUES (?,?,?)" ,
           args: [data.id_prova, questao.numero, questao.texto],
         });
         if (!sucesso){

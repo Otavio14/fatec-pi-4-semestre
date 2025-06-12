@@ -123,7 +123,7 @@ export const VestibularPage = () => {
           Adicionar
         </button>
       </header>
-      <div className="flex flex-col rounded p-4">
+      <div className="flex max-h-[80vh] flex-col overflow-scroll rounded p-4">
         <table>
           <thead>
             <tr>

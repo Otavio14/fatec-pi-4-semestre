@@ -8,7 +8,7 @@ export const TemasRedacaoPage = () => {
   const [redacaoSorteada, setRedacaoSorteada] = useState<any>(null);
 
   const navigate = useNavigate()
-  
+
   const confirmarRedacao = () => {
     console.log(essayText)
   }
@@ -19,41 +19,52 @@ export const TemasRedacaoPage = () => {
     let nova;
     do {
       nova = redacoesComReferencias[Math.floor(Math.random() * redacoesComReferencias.length)];
-    } while (nova.redacaoInfo.data.dados.id === redacaoSorteada.redacaoInfo.data.dados.id);
+    } while (nova.id_redacao === redacaoSorteada.id_redacao);
 
     setRedacaoSorteada(nova);
+    setEssayText(""); // limpa o campo de texto
   };
+
 
 
   useEffect(() => {
     apiService.get("/redacoes-referencias").then(async (res) => {
       const redacoes_referencias = res.data.dados;
 
-      const redacoesComReferencias = await Promise.all(
-        redacoes_referencias.map(async (redacoesReferencias: any) => {
-          const redacoesInfo = await apiService.get(`/redacoes/${redacoesReferencias.id_redacao}`);
-          const referenciasInfo = await apiService.get(`/referencias/${redacoesReferencias.id_referencia}`);
-          const provaInfo = await apiService.get(`/provas/${redacoesInfo.data.dados.id_prova}`);
+      // Obtem todos os ids únicos de redações
+      const idsRedacoes = [...new Set(redacoes_referencias.map((r: any) => r.id_redacao))];
 
-          return {
-            ...redacoesReferencias,
-            provaInfo,
-            redacaoInfo: redacoesInfo,
-            referenciaInfo: referenciasInfo,
-          };
-        })
-      );
+      // Busca todas as redações com suas referências
+      const redacoesAgrupadas = await Promise.all(idsRedacoes.map(async (id_redacao) => {
+        const referenciasDaRedacao = redacoes_referencias.filter((r: any) => r.id_redacao === id_redacao);
 
-      // ✅ Aqui estava faltando isso:
-      setRedacoesComReferencias(redacoesComReferencias);
+        const redacoesInfo = await apiService.get(`/redacoes/${id_redacao}`);
+        const provaInfo = await apiService.get(`/provas/${redacoesInfo.data.dados.id_prova}`);
 
-      // Sorteia uma redação aleatoriamente
-      const sorteada = redacoesComReferencias[Math.floor(Math.random() * redacoesComReferencias.length)];
-      setRedacaoSorteada(sorteada);
+        const referencias = await Promise.all(referenciasDaRedacao.map(async (item: any) => {
+          const referenciaInfo = await apiService.get(`/referencias/${item.id_referencia}`);
+          return referenciaInfo.data.dados;
+        }));
+
+        return {
+          id_redacao,
+          redacaoInfo: redacoesInfo,
+          provaInfo,
+          referencias,
+        };
+      }));
+
+      setRedacoesComReferencias(redacoesAgrupadas);
+
+      // Sorteia a primeira
+      const redacaoInicial = redacoesAgrupadas[Math.floor(Math.random() * redacoesAgrupadas.length)];
+      setRedacaoSorteada(redacaoInicial);
     }).catch((err) => {
       console.log("Erro ao buscar redações ou referências:", err);
     });
   }, []);
+
+
 
 
   if (!redacaoSorteada) return <div className="p-10 text-gray-600">Carregando tema de redação...</div>;
@@ -74,36 +85,49 @@ export const TemasRedacaoPage = () => {
           {redacao.provaInfo.data.dados.nome}
         </div>
 
-        {/* Texto de referência */}
+        {/* Textos de referência */}
         <div className="pointer-events-none self-start rounded-full bg-gray-200 px-4 py-2 text-sm font-semibold text-gray-700">
-          Texto de Referência
+          Textos de Referência
         </div>
-        <div>
-          <h2 className="text-2xl leading-snug font-bold text-gray-800">
-            {redacao.referenciaInfo.data.dados.titulo}
-          </h2>
-          <p className="leading-snug font-bold text-gray-800">
-            {redacao.referenciaInfo.data.dados.legenda}
-          </p>
-          {redacao.referenciaInfo.data.dados.url_imagem ? (
-            <img
-              className="flex justify-center align-center mx-auto mt-4"
-              src={redacao.referenciaInfo.data.dados.url_imagem}
-            />
-          ) : null}
-          <p className="my-4">
-            {redacao.referenciaInfo.data.dados.texto}
-          </p>
-        </div>
+
+        {redacao?.referencias?.map((referencia: any, index: number) => (
+          <div key={index} className="mb-6 bg-gray-200 p-2 shadow-md rounded-md">
+            <h2 className="text-xl font-bold text-gray-800">{referencia.titulo}</h2>
+            <p className="font-bold text-gray-800">{referencia.legenda}</p>
+            {referencia.data?.dados?.url_imagem ? (
+              <img
+                className="flex justify-center align-center mx-auto mt-4"
+                src={referencia.data.dados.url_imagem}
+                alt={`Referência ${index + 1}`}
+              />
+            ) : null}
+            <p className="my-4">{referencia.texto}</p>
+          </div>
+        ))}
 
         {/* Título do tema */}
         <div className="pointer-events-none self-start rounded-full bg-gray-200 px-4 py-2 text-sm font-semibold text-gray-700">
           Tema da Redação
         </div>
+        <div className="border-2 rounded-xl text-center shadow-md">
+          <h1 className="text-xl leading-snug text-gray-800">A partir da coletânea apresentada, elabore um texto narrativo ou um texto
+            dissertativo-argumentativo explorando o seguinte tema:</h1>
+          <h2 className="text-2xl leading-snug font-bold text-gray-800">
+            {redacao.redacaoInfo.data.dados.instrucoes}
+          </h2>
+        </div>
+        <div className="text-center">
+          <h1 className="font-bold text-xl">Orientações</h1> <br />
+          <p className="text-start text-md">• Narração – explore adequadamente os elementos desse gênero: fato(s), personagem(ns), tempo e lugar.</p>
+          <p className="text-start text-md">• Dissertação – selecione, organize e relacione os argumentos, fatos e opiniões para sustentar suas ideias e pontos de vista.</p>
+          <h1 className="font-bold text-xl text-start mt-2">Ao elaborar seu texto:</h1> <br />
+          <p className="text-start text-md">Atribua um título para sua redação;</p>
+          <p className="text-start text-md">Não o redija em versos;</p>
+          <p className="text-start text-md">Organize-o em parágrafos;</p>
+          <p className="text-start text-md">Empregue apenas a norma culta da língua portuguesa;</p>
+          <p className="text-start text-md">Não copie os textos apresentados na coletânea e na prova;</p>
 
-        <h2 className="text-2xl leading-snug font-bold text-gray-800">
-          {redacao.redacaoInfo.data.dados.instrucoes}
-        </h2>
+        </div>
 
         {/* Campo de texto */}
         <textarea

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { apiService } from "../services/api.service";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 interface Alternativa {
   correta: boolean;

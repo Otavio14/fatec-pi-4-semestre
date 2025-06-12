@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://otavio14.github.io/fatec-pi-4-semestre",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -17,6 +18,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.4.1",
+    "react-router-dom": "^7.6.2",
     "sweetalert2": "^11.17.2"
   },
   "devDependencies": {

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import fatec from "../assets/fatec.png";
 import logo from "../assets/logo.png";
 import userImage from "../assets/user.svg";

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router-dom";
 import { errorSwal } from "../services/api.service";
 import { authService } from "../services/auth.service";
 import { UsuarioService } from "../services/usuario.service";
@@ -110,9 +110,9 @@ export const LoginPage = () => {
 
         <p className="mt-6 text-center text-sm text-gray-600">
           Ainda não tem uma conta?
-          <a href="/cadastro" className="text-blue-500 hover:underline">
+          <NavLink to="/cadastro" className="text-blue-500 hover:underline">
             Cadastre-se
-          </a>
+          </NavLink>
         </p>
       </div>
     </div>

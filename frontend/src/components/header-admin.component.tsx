@@ -1,6 +1,6 @@
 // import { List, SignOut } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
-import { NavLink, Outlet, useLocation, useNavigate } from "react-router";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 
 export const HeaderAdminComponent = () => {

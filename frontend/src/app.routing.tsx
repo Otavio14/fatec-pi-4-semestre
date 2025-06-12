@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { OutletComponent } from "./components/outlet.component";
 import { CadastroPage } from "./pages/cadastro.page";
 import { CursoPage } from "./pages/curso.page";
@@ -50,15 +50,15 @@ export const AppRouting = () => {
         <Route path="*" element={renderTags(<NotFoundPage />)} />
         <Route
           path="/questoes-alternativas"
-          element={renderTags(<QuestoesAlternativasPage />)}
+          element={renderTags(<QuestoesAlternativasPage />, "Público")}
         />
         <Route
           path="/temas-redacao"
-          element={renderTags(<TemasRedacaoPage />)}
+          element={renderTags(<TemasRedacaoPage />, "Público")}
         />
         <Route
           path="/vestibular-completo"
-          element={renderTags(<VestibularCompletoPage />)}
+          element={renderTags(<VestibularCompletoPage />, "Público")}
         />
         <Route
           path="/provas-anteriores"

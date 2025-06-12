@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { errorSwal } from "../services/api.service";
 import { authService } from "../services/auth.service";
@@ -167,9 +167,9 @@ export const CadastroPage = () => {
 
         <p className="mt-6 text-center text-sm text-gray-600">
           Já tem uma conta?{" "}
-          <a href="/login" className="text-blue-500 hover:underline">
+          <NavLink to="/login" className="text-blue-500 hover:underline">
             Entrar
-          </a>
+          </NavLink>
         </p>
       </div>
     </div>

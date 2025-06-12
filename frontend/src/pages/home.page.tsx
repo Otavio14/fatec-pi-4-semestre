@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import StudyingContainerImage from "../assets/StudyingContainerImg.png";
 import { CardComponent } from "../components/card.component";
 
@@ -93,12 +94,12 @@ export const HomePage = () => {
               vestibulares anteriores da FATEC. Melhore seu desempenho e esteja
               preparado para conquistar sua vaga!
             </p>
-            <a
-              href="/provas-anteriores"
+            <NavLink
+              to="/provas-anteriores"
               className="inline-flex rounded-full bg-blue-500 px-8 py-3 text-lg font-semibold text-white transition hover:bg-blue-600"
             >
               Ver Provas
-            </a>
+            </NavLink>
           </div>
         </div>
       </div>
@@ -109,7 +110,7 @@ export const HomePage = () => {
         className="flex w-full justify-center"
       >
         <div
-          className="mb-8 flex cursor-pointer w-full max-w-6xl flex-col gap-8 overflow-hidden rounded-2xl bg-white px-6 py-10 shadow-lg transition-transform duration-300 hover:scale-105 relative bg-cover bg-center text-white"
+          className="relative mb-8 flex w-full max-w-6xl cursor-pointer flex-col gap-8 overflow-hidden rounded-2xl bg-white bg-cover bg-center px-6 py-10 text-white shadow-lg transition-transform duration-300 hover:scale-105"
           style={{
             backgroundImage:
               "url('https://imgs.search.brave.com/PYOLl9kC5RsVHGDeI7NrExDz0BArRksbLQLlc_pm-dM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly92ZXN0/aWJ1bGFyZXMuZXN0/cmF0ZWdpYS5jb20v/cG9ydGFsL3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDIwLzA4L3Zl/c3RpYnVsYXItZmF0/ZWMuanBn')",
@@ -123,12 +124,13 @@ export const HomePage = () => {
             <h2 className="text-center text-4xl leading-tight font-extrabold text-white md:text-5xl">
               Inscreva-se no Vestibular da Fatec!
             </h2>
-            <p className="text-center mx-auto text-lg text-white">
-              Utilize todo seu treinamento na prática por meio do processo seletivo!
+            <p className="mx-auto text-center text-lg text-white">
+              Utilize todo seu treinamento na prática por meio do processo
+              seletivo!
             </p>
           </div>
         </div>
       </a>
-    </div >
+    </div>
   );
 };

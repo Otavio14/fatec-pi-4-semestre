@@ -1,4 +1,4 @@
-import { Client, createClient, InStatement } from "@libsql/client";
+import { Client, createClient, InStatement, Transaction } from "@libsql/client";
 import { Injectable, OnModuleInit } from "@nestjs/common";
 
 @Injectable()

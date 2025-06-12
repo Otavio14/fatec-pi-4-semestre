@@ -11,7 +11,7 @@ import {
 import { API_RESPONSE_CONSTANTS } from "../../common/constants/api-response.constant";
 import { Roles } from "../../common/decorators/role.decorator";
 import { IApiResponse, ICrudController } from "../../common/index.interface";
-import { IQuestao } from "./questao.interface";
+import { IQuestao, IMultiplasQuestoes } from "./questao.interface";
 import { QuestaoService } from "./questao.service";
 
 @Controller("questoes")
@@ -102,6 +102,24 @@ export class QuestaoController implements ICrudController<IQuestao, number> {
     } catch (error) {
       this.logger.error(error);
       return API_RESPONSE_CONSTANTS.UPDATE.ERROR;
+    }
+  }
+
+  @Post("multiple")
+  @Roles(["Administrador"])
+  async createMultiple(
+    @Body() data: IMultiplasQuestoes, 
+  ): Promise<IApiResponse<boolean>> {
+    try {
+      await this.questaoService.createMultiple(data);
+
+      return {
+        ...API_RESPONSE_CONSTANTS.CREATE.SUCCESS,
+        mensagem:"Questões criadas com sucesso!",
+      };
+    }
+    catch(error){
+      throw error;
     }
   }
 }

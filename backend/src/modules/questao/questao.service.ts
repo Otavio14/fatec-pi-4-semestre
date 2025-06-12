@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { DatabaseService } from "../../common/database/database.service";
 import { ICrudService } from "../../common/index.interface";
-import { IQuestao } from "./questao.interface";
+import { IQuestao, IMultiplasQuestoes } from "./questao.interface";
 
 @Injectable()
 export class QuestaoService implements ICrudService<IQuestao, number> {
@@ -45,5 +45,23 @@ export class QuestaoService implements ICrudService<IQuestao, number> {
       sql: "UPDATE questoes SET id_prova = ?, numero = ?, texto = ? WHERE id = ?;",
       args: [data.id_prova, data.numero, data.texto, id],
     });
+  }
+
+  async createMultiple(data: IMultiplasQuestoes): Promise <boolean>{
+    try{
+      for(const questao of data.questoes){
+        const sucesso = await this.databaseService.executeInsert({
+          sql: "INSERT INTO questoes (id_proca, numero, texto) VALUES (?,?,?)" ,
+          args: [data.id_prova, questao.numero, questao.texto],
+        });
+        if (!sucesso){
+          throw new Error ('Falha ao inserir questao ${questao.numero}');
+        }
+      }
+      return true;
+    }
+    catch(error){
+      throw error;
+    }
   }
 }

@@ -4,3 +4,11 @@ export interface IQuestao {
   numero: number;
   texto: string;
 }
+
+export interface IMultiplasQuestoes {
+  id_prova: number;
+  questoes: Array<{
+    numero: number;
+    texto: string;
+  }>;
+}

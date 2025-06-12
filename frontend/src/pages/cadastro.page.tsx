@@ -56,6 +56,12 @@ export const CadastroPage = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#f5f7fa] to-[#c3cfe2] px-4">
+      <button
+        onClick={() => navigate("/")}
+        className="fixed top-8 left-8 mr-auto rounded-lg bg-blue-500 px-4 py-2 font-medium text-white transition duration-200 hover:bg-blue-600"
+      >
+        Home
+      </button>
       <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl transition-transform duration-300 hover:scale-105">
         <h2 className="mb-6 text-center text-3xl font-extrabold text-gray-800 md:text-4xl">
           Criar Conta

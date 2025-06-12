@@ -9,8 +9,8 @@ export class QuestaoService implements ICrudService<IQuestao, number> {
 
   create(data: IQuestao): Promise<boolean> {
     return this.databaseService.executeInsert({
-      sql: "INSERT INTO questoes (id_prova, texto) VALUES (?, ?);",
-      args: [data.id_prova, data.texto],
+      sql: "INSERT INTO questoes (id_prova, numero, texto) VALUES (?, ?);",
+      args: [data.id_prova, data.numero, data.texto],
     });
   }
 
@@ -23,13 +23,13 @@ export class QuestaoService implements ICrudService<IQuestao, number> {
 
   findAll(): Promise<Array<IQuestao>> {
     return this.databaseService.executeQuery<IQuestao>(
-      "SELECT id, id_prova, texto FROM questoes;",
+      "SELECT id, id_prova, numero, texto FROM questoes;",
     );
   }
 
   async findOne(id: number): Promise<IQuestao | object> {
     const results = await this.databaseService.executeQuery<IQuestao>({
-      sql: "SELECT id, id_prova, texto FROM questoes WHERE id = ?;",
+      sql: "SELECT id, id_prova, numero, texto FROM questoes WHERE id = ?;",
       args: [id],
     });
 
@@ -42,8 +42,8 @@ export class QuestaoService implements ICrudService<IQuestao, number> {
 
   update(id: number, data: IQuestao): Promise<boolean> {
     return this.databaseService.executeUpdate({
-      sql: "UPDATE questoes SET id_prova = ?, texto = ? WHERE id = ?;",
-      args: [data.id_prova, data.texto, id],
+      sql: "UPDATE questoes SET id_prova = ?, numero = ?, texto = ? WHERE id = ?;",
+      args: [data.id_prova, data.numero, data.texto, id],
     });
   }
 }

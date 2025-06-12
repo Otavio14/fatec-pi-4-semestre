@@ -2,6 +2,8 @@
 
 > Um sistema web para criação e gerenciamento de simulados de vestibular, permitindo a geração automática de provas com questões categorizadas por matéria.
 
+O site está publicado no Github Pages, sendo possível acessá-lo pela URL https://otavio14.github.io/fatec-pi-4-semestre/ e a API está disponível pela URL https://fatec-pi-4-semestre-latest.onrender.com .
+
 ## 📋 Índice
 
     - Descrição
@@ -34,36 +36,58 @@
 ## 🚀 Instalação
 
 1. Clone o repositório:
+
    ```bash
    git clone https://github.com/Otavio14/fatec-pi-4-semestre.git
 
+   ```
+
 2. Navegue até o diretório do projeto:​
-    ```bash
-    cd fatec-pi-4-semestre
+
+   ```bash
+   cd fatec-pi-4-semestre
+
+   ```
 
 3. Navegue até o Backend:​
-    ```bash
-    cd .\backend\
+
+   ```bash
+   cd .\backend\
+
+   ```
 
 4. Instale as dependências no Backend:​
-    ```bash
-    npm i
+
+   ```bash
+   npm i
+
+   ```
 
 5. Navegue até o Frontend:​
-    ```bash
-    cd .\frontend\
+
+   ```bash
+   cd .\frontend\
+
+   ```
 
 6. Instale as dependências no Frontend:​
-    ```bash
-    npm i
+
+   ```bash
+   npm i
+
+   ```
 
 7. Inicie o Backend:​
-    ```bash
-    npm run start:dev
+
+   ```bash
+   npm run start:dev
+
+   ```
 
 8. Inicie o Frontend:​
-    ```bash
-    npm run dev
+   ```bash
+   npm run dev
+   ```
 
 📌 Uso
 Acesse http://localhost:3000 para interagir com a API.

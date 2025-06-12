@@ -3,7 +3,9 @@ import Swal from "sweetalert2";
 import { IApiResponse } from "../types/index.type";
 
 export const apiService = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: window.location.hostname.includes("localhost")
+    ? "http://localhost:3000"
+    : "https://fatec-pi-4-semestre-latest.onrender.com",
   headers: {
     "Content-Type": "application/json",
   },

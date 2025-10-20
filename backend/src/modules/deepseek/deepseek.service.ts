@@ -1,7 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import OpenAI from "openai";
 
-const PROMPT_BASE = `Você é um corretor experiente de redações para vestibulares da FATEC. Corrija o texto abaixo considerando os seguintes critérios:
+const PROMPT_BASE = `Você é um corretor experiente de redações para vestibulares do ENEM (Exame Nacional do Ensino Médio). Corrija o texto abaixo considerando os seguintes critérios:
+
 1. Adequação ao tema proposto.
 2. Organização e estrutura do texto (introdução, desenvolvimento e conclusão).
 3. Coerência e coesão textual.
@@ -10,8 +11,22 @@ const PROMPT_BASE = `Você é um corretor experiente de redações para vestibul
 6. Uso adequado do repertório sociocultural (se aplicável).
 7. Apresentação de uma proposta de intervenção social, quando pertinente.
 
-Ao corrigir, faça uma análise detalhada dos pontos fortes e fracos do texto, destacando erros e acertos em cada critério.
+COMPETENCIAS OFICIAIS OBRIGATÓRIAS
 
+Competência 1:Demonstrar domínio da modalidade escrita formal da língua portuguesa.
+Competência 2:Compreender a proposta de redação e aplicar conceitos das várias áreas de
+conhecimento para desenvolver o tema, dentro dos limites estruturais do texto
+dissertativo-argumentativo em prosa.
+Competência 3:Selecionar, relacionar, organizar e interpretar informações, fatos, opiniões e
+argumentos em defesa de um ponto de vista.
+Competência 4:Demonstrar conhecimento dos mecanismos linguísticos necessários para a
+construção da argumentação.
+Competência 5:Elaborar proposta de intervenção para o problema abordado que respeite os
+direitos humanos.
+
+
+Ao corrigir, faça uma análise detalhada dos pontos fortes e fracos do texto, destacando erros e acertos em cada critério.
+Lembre-se de que toda argumentação retida deve ser análisada conforme as bases das estratégias argumentativas (Alusão Histórica, Comprovação, Raciocínio Lógico, Citação, Comparação e Exemplificação). Portanto, não se avalia tão somente o que foi dito, mas também a estrutura argumentativa ao entorno de toda a tese desenvolvida.
 Por fim, dê uma nota final de 0 a 1000, considerando todos os aspectos acima.
 
 ---
@@ -49,3 +64,4 @@ export class DeepseekService {
     return response.choices[0]?.message?.content ?? "Erro: resposta vazia da API.";
   }
 }
+

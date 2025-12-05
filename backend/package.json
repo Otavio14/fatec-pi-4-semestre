@@ -30,7 +30,8 @@
     "bcrypt": "^6.0.0",
     "dotenv": "^17.2.3",
     "mongodb": "^7.0.0",
-    "openai": "^6.9.0",
+    "openai": "^6.10.0",
+    "react-native-markdown-display": "^7.0.2",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },

@@ -11,6 +11,7 @@ import { HashModule } from "./common/hash/hash.module";
 import { AlternativaModule } from "./modules/alternativa/alternativa.module";
 import { CursoMateriaModule } from "./modules/curso-materia/curso-materia.module";
 import { CursoModule } from "./modules/curso/curso.module";
+import { DeepseekModule } from "./modules/deepseek/deepseek.module";
 import { MateriaModule } from "./modules/materia/materia.module";
 import { ProvaModule } from "./modules/prova/prova.module";
 import { QuestaoMateriaModule } from "./modules/questao-materia/questao-materia.module";
@@ -32,6 +33,7 @@ import { VestibularModule } from "./modules/vestibular/vestibular.module";
     CursoMateriaModule,
     CursoModule,
     DatabaseModule,
+    DeepseekModule,
     MateriaModule,
     ProvaModule,
     QuestaoMateriaModule,
